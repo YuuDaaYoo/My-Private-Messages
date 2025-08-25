@@ -19,33 +19,31 @@ body {
     color: rgb(253, 253, 253);
 }
 
-body h1 {
+/* Titles */
+body h1, h1#admin-title {
     color: rgb(255, 220, 220);
-    font-size: 66px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-h1, h1#admin-title {
-    color: rgb(255, 220, 220); /* pink */
-    font-size: 66px;
+    font-size: 3.5rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-align: center;
 }
-
 
 /* ===== Buttons ===== */
-button {
+button, .login-btn, .logout-btn {
     padding: 12px 30px;
-    font-size: 18px;
+    font-size: 1.1rem;
     border-radius: 25px;
     border: none;
-    background-color: rgb(255, 220, 220); /* pink */
+    background-color: rgb(255, 220, 220);
     color: white;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 5px rgba(255,255,255,0.3);
 }
 
-button:hover {
-    background-color: rgb(255, 180, 180); /* darker pink */
+button:hover, .login-btn:hover, .logout-btn:hover {
+    background-color: rgb(255, 180, 180);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
 }
 
 /* ===== Login Page ===== */
@@ -59,7 +57,7 @@ button:hover {
 
 .login-form input[type="password"] {
     padding: 12px 15px;
-    font-size: 18px;
+    font-size: 1.1rem;
     border-radius: 10px;
     border: 2px solid #ccc;
     width: 250px;
@@ -67,79 +65,47 @@ button:hover {
     font-family: cursive;
 }
 
-/* floating style for login button (centered under input) */
-.login-btn {
-    padding: 12px 30px;
-    font-size: 18px;
-    border-radius: 25px;
-    border: none;
-    background-color: rgb(255, 220, 220);
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 5px rgba(255,255,255,0.3);
-}
-
-.login-btn:hover {
-    background-color: rgb(255, 180, 180);
-    transform: translateY(-5px);
-    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
-}
-
-
-
-/* Floating logout button */
-.logout-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 20px;
-    background-color: rgb(255, 220, 220);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-    text-decoration: none; /* works for <a> too */
-}
-
-.logout-btn:hover {
-    background-color: rgb(255, 180, 180);
-}
-
 /* ===== Chat Messages (User Page) ===== */
 .messages-box {
-    width: 400px;
-    height: 300px;
-    border: 1px solid #ccc;
-    background: white;
-    padding: 10px;
+    width: 90%;
+    max-width: 600px;
+    height: 50vh;
+    border-radius: 15px;
+    padding: 15px;
+    background: rgba(0,0,0,0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     overflow-y: auto;
-    margin-bottom: 10px;
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
 }
 
-.message {
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 5px;
-    font-family: cursive;
+.message-wrapper {
+    margin: 10px 0;
+    max-width: 70%;
 }
 
-.message.user {
-    background: rgb(255, 180, 180);
-    align-self: flex-end;
+.message-bubble {
+    background: rgba(255, 182, 193, 0.9);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    word-wrap: break-word;
 }
 
-/* ===== Input Textarea (User Page) ===== */
+.message-time {
+    font-size: 0.8rem;
+    color: #ddd;
+    margin-top: 4px;
+    text-align: right;
+}
+
+/* ===== Input Textarea ===== */
 textarea#messageInput {
-    font-size: 24px !important;
-    line-height: 1.5;
-    font-family: cursive;
-    width: 600px;
+    font-size: 1.2rem;
+    width: 90%;
+    max-width: 600px;
     min-height: 100px;
     max-height: 300px;
     padding: 15px;
@@ -147,32 +113,22 @@ textarea#messageInput {
     border: 2px solid #ccc;
     background: rgba(255, 255, 255, 0.9);
     color: #000;
-
-    /* 3D effect */
     box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 5px rgba(255,255,255,0.3);
-
-    /* smooth transform */
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Hover effect: lift slightly */
-textarea#messageInput:hover {
-    transform: translateY(-5px);
-    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
-}
-
-/* Focus effect while typing */
+textarea#messageInput:hover,
 textarea#messageInput:focus {
-    outline: none; 
-    border-color: rgb(255, 180, 180);
     transform: translateY(-5px);
     box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
+    outline: none;
+    border-color: rgb(255,180,180);
 }
 
-/* background + font */
+/* ===== Admin Page ===== */
 body.admin-page {
     font-family: Arial, sans-serif;
-    background: url("kaoruko.png") no-repeat center center fixed;
+    background: url("/static/kaoruko.png") no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 20px;
@@ -193,39 +149,22 @@ body.admin-page {
     text-decoration: none;
 }
 
-/* kotak pesan */
-.messages-box {
-    width: 80%;              /* lebih lebar */
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    height: 500px;
-    overflow-y: auto;
-    border-radius: 15px;
-    background: rgba(0,0,0,0.4); /* transparan */
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+/* ===== Responsive tweaks ===== */
+@media (max-width: 480px) {
+    body h1, h1#admin-title {
+        font-size: 2rem;
+    }
+    textarea#messageInput {
+        font-size: 1rem;
+        min-height: 80px;
+    }
+    .messages-box {
+        height: 60vh;
+        padding: 10px;
+    }
+    .message-bubble {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
 }
 
-/* wrapper pesan */
-.message-wrapper {
-    margin: 12px 0;
-    max-width: 70%;
-}
-
-/* bubble pesan */
-.message-bubble {
-    background: rgba(255, 182, 193, 0.9); /* pink */
-    padding: 12px 18px;
-    border-radius: 15px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-    color: #ffffff;
-    word-wrap: break-word;
-}
-
-/* timestamp */
-.message-time {
-    font-size: 12px;
-    color: #ddd;
-    margin-top: 4px;
-    text-align: right;
-}
