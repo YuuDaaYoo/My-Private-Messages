@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            justify-content: center; /* center vertically */
+            height: 100vh;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: rgb(255, 120, 120);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-size: 16px;
+            font-family: cursive;
+            transition: 0.3s;
+        }
+
+        .login-box input[type="password"]:focus {
+            border-color: rgb(255, 180, 180);
+            outline: none;
+            box-shadow: 0 0 10px rgba(255,180,180,0.7);
+        }
+
+        #errorMsg {
+            color: red;
+            display: none;
+            transition: opacity 3s ease-out; /* smooth fade */
+        }
+    </style>
+</head>
+<body>
+     <h1 id="admin-title">Admin Login</h1>
+    <div class="login-box">
+        <form id="loginForm" class="login-form">
+    <input type="password" name="password" id="passwordInput" placeholder="Enter password">
+    <button type="submit" class="login-btn">Login</button>
+    </form>
+    
+        <p id="errorMsg"></p>
+    </div>
+
+    <script>
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const password = document.getElementById("passwordInput").value;
+
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                window.location.href = "/admin";
+            } else {
+                // Reset error msg
+                errorMsg.style.transition = "none";
+                errorMsg.style.opacity = 1;
+                errorMsg.style.display = "block";
+                errorMsg.textContent = "Incorrect password!";
+
+                void errorMsg.offsetWidth; // force reflow
+
+                errorMsg.style.transition = "opacity 3s ease-out";
+                errorMsg.style.opacity = 0;
+
+                setTimeout(() => { errorMsg.style.display = "none"; }, 3000);
+            }
+        } catch (err) {
+            console.error("Login failed:", err);
+            errorMsg.textContent = "Server error!";
+            errorMsg.style.display = "block";
+        }
+    });
+    </script>
+</body>
+</html>

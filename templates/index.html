@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat App</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* vertical centering */
+        align-items: center;     /* horizontal centering */
+        background-image: url("{{ url_for('static', filename='kaoruko.png') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #fff;
+    }
+
+    h1 {
+        color: #fff;
+        text-shadow: 1px 1px 2px #000;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    #messageInput {
+        width: 600px;
+        min-height: 100px;
+        max-height: 300px;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 18px;
+        overflow-y: hidden;
+        resize: none;
+        margin-bottom: 10px;
+        background: rgba(255,255,255,0.85); /* semi-transparent */
+        color: #000;
+    }
+
+    /* Modern Send button */
+    button {
+        padding: 12px 30px;
+        font-size: 18px;
+        border-radius: 25px;
+        border: none;
+        background-color: rgb(253, 220, 220); /* pink background */
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    button:hover {
+        background-color: rgb(255, 220, 220);
+        transform: scale(1.05); /* slight grow on hover */
+    }
+
+    #notification {
+        color: lightgreen;
+        margin-top: 10px;
+        display: none;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #000;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h1>Send Me a Message!</h1>
+
+    <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+    <br>
+    <button onclick="sendMessage()">📩 Send</button>
+
+    <p id="notification"></p>
+
+    <script>
+        const input = document.getElementById("messageInput");
+        const notification = document.getElementById("notification");
+
+        // Auto-grow textarea
+        input.addEventListener("input", function() {
+            this.style.height = "auto";
+            this.style.height = this.scrollHeight + "px";
+        });
+
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+
+            try {
+                const response = await fetch("/send", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    input.value = "";
+                    input.style.height = "auto";
+
+                    notification.textContent = "Your message has been sent!";
+                    notification.style.display = "block";
+
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 3000);
+                } else {
+                    notification.textContent = result.error || "Failed to send message";
+                    notification.style.display = "block";
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 3000);
+                }
+            } catch (err) {
+                notification.textContent = "Error sending message";
+                notification.style.display = "block";
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>

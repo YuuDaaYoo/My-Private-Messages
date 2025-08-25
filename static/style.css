@@ -1,0 +1,231 @@
+/* ===== Global Styles ===== */
+body {
+    font-family: cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+
+    /* Background image */
+    background-image: url("/static/kaoruko.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: rgb(253, 253, 253);
+}
+
+body h1 {
+    color: rgb(255, 220, 220);
+    font-size: 66px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h1, h1#admin-title {
+    color: rgb(255, 220, 220); /* pink */
+    font-size: 66px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+
+/* ===== Buttons ===== */
+button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    background-color: rgb(255, 220, 220); /* pink */
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: rgb(255, 180, 180); /* darker pink */
+}
+
+/* ===== Login Page ===== */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.login-form input[type="password"] {
+    padding: 12px 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    width: 250px;
+    text-align: center;
+    font-family: cursive;
+}
+
+/* floating style for login button (centered under input) */
+.login-btn {
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    background-color: rgb(255, 220, 220);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 5px rgba(255,255,255,0.3);
+}
+
+.login-btn:hover {
+    background-color: rgb(255, 180, 180);
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
+}
+
+
+
+/* Floating logout button */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: rgb(255, 220, 220);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none; /* works for <a> too */
+}
+
+.logout-btn:hover {
+    background-color: rgb(255, 180, 180);
+}
+
+/* ===== Chat Messages (User Page) ===== */
+.messages-box {
+    width: 400px;
+    height: 300px;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-family: cursive;
+}
+
+.message.user {
+    background: rgb(255, 180, 180);
+    align-self: flex-end;
+}
+
+/* ===== Input Textarea (User Page) ===== */
+textarea#messageInput {
+    font-size: 24px !important;
+    line-height: 1.5;
+    font-family: cursive;
+    width: 600px;
+    min-height: 100px;
+    max-height: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+
+    /* 3D effect */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 5px rgba(255,255,255,0.3);
+
+    /* smooth transform */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect: lift slightly */
+textarea#messageInput:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
+}
+
+/* Focus effect while typing */
+textarea#messageInput:focus {
+    outline: none; 
+    border-color: rgb(255, 180, 180);
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.4);
+}
+
+/* background + font */
+body.admin-page {
+    font-family: Arial, sans-serif;
+    background: url("kaoruko.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+}
+
+.admin-page h1 {
+    text-align: center;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.logout-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffcccc;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* kotak pesan */
+.messages-box {
+    width: 80%;              /* lebih lebar */
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 500px;
+    overflow-y: auto;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.4); /* transparan */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+/* wrapper pesan */
+.message-wrapper {
+    margin: 12px 0;
+    max-width: 70%;
+}
+
+/* bubble pesan */
+.message-bubble {
+    background: rgba(255, 182, 193, 0.9); /* pink */
+    padding: 12px 18px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    color: #ffffff;
+    word-wrap: break-word;
+}
+
+/* timestamp */
+.message-time {
+    font-size: 12px;
+    color: #ddd;
+    margin-top: 4px;
+    text-align: right;
+}

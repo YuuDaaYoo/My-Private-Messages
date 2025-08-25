@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Messages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin-page">
+    <h1>📩 Private Messages</h1>
+    <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+
+    <div id="messages" class="messages-box">
+        <!-- pesan akan dimuat di sini -->
+    </div>
+
+    <script>
+    async function loadMessages() {
+        try {
+            const response = await fetch("/messages");
+            const data = await response.json();
+
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML = "";
+
+            data.forEach(msg => {
+                // wrapper untuk 1 pesan
+                let wrapper = document.createElement("div");
+                wrapper.className = "message-wrapper";
+
+                // bubble pesan
+                let bubble = document.createElement("div");
+                bubble.className = "message-bubble";
+                bubble.textContent = msg.text;
+
+                // timestamp
+                let time = document.createElement("div");
+                time.className = "message-time";
+                time.textContent = msg.time;
+
+                wrapper.appendChild(bubble);
+                wrapper.appendChild(time);
+
+                messagesDiv.appendChild(wrapper);
+            });
+
+            // Auto scroll ke bawah
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        } catch (err) {
+            console.error("Failed to load messages:", err);
+        }
+    }
+
+    setInterval(loadMessages, 2000);
+    loadMessages();
+    </script>
+</body>
+</html>
